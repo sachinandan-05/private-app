@@ -1,0 +1,170 @@
+{% extends 'masterpage/index-1.html' %}
+{% block title3 %} Private Window {% endblock %}
+{% load static %}
+{% load id_filters %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="cal_ content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="row">
+      <div class="col-md-4">
+        <h5 class="card-title">Manage Private Window</h5>
+      </div>
+      <div class="col-md-2">
+        {% if messages %}
+          {% for message in messages %}
+            <p style="color: red; margin-top: 10px !important">{{ message }}</p>
+          {% endfor %}
+        {% endif %}
+      </div>
+      <div class="col-md-3">
+        <div style="text-align-last: center; padding-top: 12px">
+          <button
+            type="button"
+            onclick="openModel()"
+            class="btn btn-sm btn-light"
+            style="color: blue; border: blue solid 1.7px; padding: 6px 17px"
+          >
+            <i class="fa fa-plus" style="font-weight: bolder"></i> ADD DATE 
+          </button>
+        </div>
+      </div>
+      <div class="col-md-3" style="padding-top: 12px">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="javascript:void(0)"><i class="fa fa-dashboard mr-1"></i>Private</a>
+          </li>
+          <li class="breadcrumb-item active">
+            <a href="javascript:void(0)">Window</a>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      {% if list %}
+        {% for i in list %}
+          <div class="col-12 col-lg-6 col-xl-3">
+            <div class="box">
+              <div class="box-body">
+                <div>
+                  <a href="/view/{{ i.id|encoded_id }}" class="text-center">
+                    <h4 class="box-title mb-0">
+                      {{i.title}}
+                      {% if i.share %}
+                        <span class="float-right">
+                          <i class="fa fa-share"></i>
+                        </span>
+                      {% endif %}
+                    </h4>
+                    <h3 class="box-title mb-0">
+                      <span>
+                        <i
+                          style="margin-right: 20px"
+                          class="fa fa-info-circle"
+                          aria-hidden="true"
+                        ></i>
+                      </span>
+                      {{i.date_name}}
+                    </h3>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="col-12">
+          <h1>No Note Created Yet!</h1>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+
+<div class="modal center-modal fade" id="categoryModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="add_cat" style="display: none">ADD DETAILS</h5>
+        <h5 class="modal-title" id="edit_cat" style="display: none">EDIT DETAILS</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" id="Addcategory" enctype="multipart/form-data">
+          {% csrf_token %}
+          <input type="hidden" name="id" id="id" value="" />
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-12">
+                {{ m.title|as_crispy_field }}
+                {{ m.date_name|as_crispy_field }}
+                {{ m.private_description|as_crispy_field }}
+                {{ m.share|as_crispy_field }}
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-dark" data-dismiss="modal">
+              <span class="text-light">Close</span>
+            </button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Include jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  function openModel() {
+    $('[name="id"]').val("");
+    $("#Addcategory")[0].reset();
+    $("#add_cat").show(); 
+    $("#edit_cat").hide(); 
+    $("#categoryModal").modal('show');
+  }
+
+  function updateModel(id) {
+    $.ajax({
+      url: "/updatepra/",
+      method: "POST",
+      data: {
+        id: id,
+        csrfmiddlewaretoken: "{{ csrf_token }}"
+      },
+      dataType: "JSON",
+      success: function (data) {
+        $('[name="id"]').val(data.id);
+        $("#id_date_name").val(data.date_name);
+        $("#id_private_description").val(data.private_description);
+        $("#add_cat").hide(); 
+        $("#edit_cat").show(); 
+        $("#categoryModal").modal('show'); 
+      },
+      error: function () {
+        alert("Something went wrong.");
+      }
+    });
+  }
+
+  function Delete(id) {
+    if (confirm("You want to delete Private Item?")) {
+      window.location.href = "/remove_pri/" + id + "/";
+    }
+  }
+</script>
+
+{% endblock %}
