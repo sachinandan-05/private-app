@@ -3,7 +3,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "Private-app-main/wsgi.py",
+      "src": "Private-app/wsgi.py",
       "use": "@vercel/python",
       "config": { "maxLambdaSize": "15mb", "runtime": "python3.11.3" }
     },
@@ -22,7 +22,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "private-app-main/wsgi.py"
+      "dest": "private-app/wsgi.py"
     }
   ]
 }
