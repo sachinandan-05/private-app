@@ -49,7 +49,7 @@ Leveraging the Google Drive API, this dynamic web application revolutionizes pho
 
 ## About The Project
 
-![Screen Shot](/static/admin/folder/images/screenshot.png)
+![Screen Shot](static\admin\folder\images\screenshot.png)
 
 Welcome to the Private App repository! This dynamic web application revolutionizes photo and video management through chronological date-based notes. Crafted with precision using Django, it offers a seamless and delightful user experience.
 
