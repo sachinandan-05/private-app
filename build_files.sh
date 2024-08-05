@@ -3,6 +3,9 @@
 # Exit immediately if a command exits with a non-zero status
 set -e
 
+# Install system dependencies
+apt-get update && apt-get install -y default-libmysqlclient-dev
+
 # Ensure Python is available
 if ! command -v python3 &> /dev/null
 then
