@@ -12,9 +12,5 @@
             "src": "/(.*)",
             "dest": "private_info/wsgi.py"
         }
-    ],
-    "static": {
-        "src": "static/",
-        "dest": "static/"
-    }
+    ]
 }
