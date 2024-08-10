@@ -31,7 +31,7 @@ Leveraging the Google Drive API, this dynamic web application revolutionizes pho
 
 # Live Demo 👇:
 
-<a href="" target="_blank">private-app.sachinandan.versel</a>
+<a href="" target="_blank">https://sachinandan.pythonanywhere.com/</a>
 
 <br>
 
