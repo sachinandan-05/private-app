@@ -198,7 +198,7 @@ The repository is a starting point for most of my professional projects; for thi
 </p>
 
 <p style="text-align:right;" align="right">
-  <a href="https://github.com/PrathmeshSoni/Private-App" target="_blank">Back To Repository</a>
+  <a href="https://github.com/sachinandan-05/Private-App" target="_blank">Back To Repository</a>
 </p>
 
 
